@@ -1,0 +1,318 @@
+\documentclass[12pt]{article}
+% ----------------------------------------------------------------------
+% Define external packages, language, margins, fonts, new commands 
+% and colors
+% ----------------------------------------------------------------------
+\usepackage[utf8]{inputenc} % Codification
+\usepackage[english]{babel} % Writing idiom
+
+\usepackage[export]{adjustbox} % Align images
+\usepackage{amsmath} %a Extra commands for math mode
+\usepackage{amssymb} % Mathematical symbols
+\usepackage{anysize} % Personalize margins
+    \marginsize{2cm}{2cm}{2cm}{2cm} % {left}{right}{above}{below}
+\usepackage{appendix} % Appendices
+\usepackage{cancel} % Expression cancellation
+\usepackage{caption} % Captions
+    \captionsetup{labelfont={bf}}
+\usepackage{cite} % Citations, like [1 - 3]
+\usepackage{color} % Text coloring
+\usepackage{fancyhdr} % Head note and footnote
+    \pagestyle{fancy}
+    \fancyhf{}
+    \fancyhead[L]{
+        \includegraphics[scale = 0.3]{Images/NovaFctHor.png}
+    } % Left of Head note
+    \fancyhead[R]{\footnotesize Cadeira} % Right of Head note
+    \fancyfoot[L]{\footnotesize MEEC} % Left of Footnote
+    \fancyfoot[R]{\thepage  } % Center of Footnote
+    %\fancyfoot[R]{\footnotesize Degree} % Right of Footnote
+    \renewcommand{\footrulewidth}{0.4pt} % Footnote rule
+\usepackage{float} % Utilization of [H] in figures
+\usepackage{graphicx} % Figures in LaTeX
+\usepackage[colorlinks = true, plainpages = true, linkcolor = novablue, urlcolor = novablue, citecolor = novablue, anchorcolor = novablue]{hyperref}
+\usepackage{indentfirst} % First paragraph
+\usepackage[super]{nth} % Superscripts
+\usepackage{siunitx} % SI units
+\usepackage{subcaption} % Subfigures
+\usepackage{titlesec} % Font
+    \titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+    \titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+    \titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{1em}{}
+    %\fancyfoot[C]{\thepage}
+
+%code
+\usepackage[breakable]{tcolorbox}
+
+% Code highlighting
+\usepackage{listings}
+\lstset{ 
+    backgroundcolor=\color{cellbackground}, % background color for the code block
+    basicstyle=\ttfamily,                   % font style
+    breakatwhitespace=false,                % automatic breaks only at whitespace
+    breaklines=true,                        % automatic line breaking
+    captionpos=b,                           % caption position
+    commentstyle=\color{gray},              % comment style
+    escapeinside={\%*}{*)},                 % if you want to add LaTeX within your code
+    keywordstyle=\color{blue},              % keyword style
+    stringstyle=\color{dkgreen},            % string style
+    frame=single,                           % adds a frame around the code
+    rulecolor=\color{cellborder},           % border color
+}
+
+%---------TIKZ CONFIG---------%
+%Block diagram
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+% Define custom color lightblue
+\definecolor{lightblue}{RGB}{173, 216, 230}
+\tikzstyle{block} = [draw, rectangle, 
+    minimum height=2.5em, minimum width=3.5em]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\usepackage{xcolor}
+
+% Define a custom light blue color
+\definecolor{lightblue}{RGB}{173, 216, 230}
+
+% Define styles with blue shades
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
+\tikzstyle{process}   = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=cyan!30]
+\tikzstyle{decision}  = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=lightblue]
+
+%---------TIKZ CONFIG---------%
+
+% Exact colors from NB
+\definecolor{incolor}{HTML}{303F9F}
+\definecolor{outcolor}{HTML}{D84315}
+\definecolor{cellborder}{HTML}{CFCFCF}
+\definecolor{cellbackground}{HTML}{F7F7F7}
+
+%folders .tex
+\usepackage{subfiles}
+
+% Random text (not needed)
+\usepackage{lipsum}
+\usepackage{duckuments}
+
+% Tables
+\usepackage{tabularx} 
+\usepackage{booktabs}
+\usepackage{makecell}
+
+% New and re-newcommands
+\newcommand{\sen}{\operatorname{\sen}} % Sine function definition
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Specific rule definition
+\renewcommand{\appendixpagename}{\LARGE Appendices}
+
+% Colors
+
+\definecolor{novablue}{RGB}{0, 101, 189}
+\definecolor{dkgreen}{RGB}{52,129,65}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                 Document                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+% Add bibliography data and style
+\bibliographystyle{IEEEtran}
+% ----------------------------------------------------------------------
+% Cover
+% ----------------------------------------------------------------------
+\begin{center}
+    \begin{figure}
+        \vspace{-1.0cm}
+        \includegraphics[scale = 0.055, left]{Images/NovaFctVer.png} % Nova logo
+        
+    \end{figure}
+
+    \mbox{}\\[2.0cm]
+    \textsc{\Huge Nucleo de AeroEspacial}\\[2.5cm]
+    \textsc{\LARGE ASTRO}\\[2.0cm]
+    \HRule\\[0.4cm]
+    {\large \bf {Electronics Report}}\\[0.2cm]
+    \HRule\\[1.5cm]
+\end{center}
+
+\begin{flushleft}
+    \textbf{Author:}
+\end{flushleft}
+
+\begin{center}
+    \begin{minipage}{0.5\textwidth}
+        \begin{flushleft}
+            Lorem Ipsum (31416)\\
+            Lorem Ipsum (31416)
+        \end{flushleft}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \begin{flushright}
+            \href{mailto:lorem.ipsum@campus.fct.unl.pt}{\texttt{lorem.ipsum@campus.fct.unl.pt}}\\
+            \href{mailto:lorem.ipsum@campus.fct.unl.pt}{\texttt{lorem.ipsum@campus.fct.unl.pt}}
+        \end{flushright}
+    \end{minipage}
+\end{center}
+ 
+\vspace{5cm}
+
+\begin{center}
+    \large \bf 2025/2026 -- \nth{1} Semester, DEEC
+\end{center}
+
+\thispagestyle{empty}
+
+\setcounter{page}{0}
+
+\newpage
+
+\newpage
+
+\tableofcontents % Generates the table of contents
+
+\newpage
+
+\listoffigures
+
+\newpage
+
+\section*{Abbreviations}
+\begin{itemize}
+    \item SRAD -- Student Research and Development
+    \item COTS -- Commercial Off The Shelf
+    \item RTOS -- Real time operating system
+\end{itemize}
+
+\section{Electronics Working Volume}
+\begin{itemize}
+    \item \textbf{Dimensions:} 200\,mm $\times$ 119\,mm (inner diameter)
+    \item \textbf{Possible PCB positioning:} triangular configuration
+\end{itemize}
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{Images/PCB_diag.png}
+  \caption{View of future PCB placement}
+  \label{fig:PCB_diag}
+\end{figure}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{PCB} & \textbf{Designation} \\
+\midrule
+PCB 1 & SRAD \\
+PCB 2 & COTS \\
+PCB 3 & PSU \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Electronic Components}
+
+\subsection{SRAD}
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Device} & \textbf{Voltage (V)} & \textbf{Current (mA)} & \textbf{Power (mW)} \\
+\midrule
+CPU STM32F411 & 1.8 -- 3.6 & ? & ? \\
+6DOF IMU ICM-45686 & 3.3 & 34 & ? \\
+3DOF accelerometer  ADXL375 & 2.0--3.6 & 145~\textmu A  & ? \\
+3DOF magnetometer LIS2MDL & 1.71 -- 3.6 & 200~\textmu A  & ? \\
+Barometer MS5607 & 1.8--3.6 V & 1.4 & ? \\
+GPS module NEO-M9N & 3.6 & ? & ? \\
+LoRa SX1278 Ra-02 & 1.8 -- 3.3 & 105 & ? \\
+SparkFun microSD Transflash & 3.3 & 20 & ? \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{COTS}
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Device} & \textbf{Voltage (V)} & \textbf{Current (mA)} & \textbf{Power (mW)} \\
+\midrule
+CATS Vega & 7--24 & 100 & 321.75 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{PSU}
+\begin{itemize}
+    \item Converts main battery voltage to 5\,V, and 3.3\,V
+    \item Can be disconnected via an arming pin (to be removed before flight)
+\end{itemize}
+
+\section*{Battery System}
+Electrical power is supplied by two Lithium-Polymer (LiPo) batteries:
+
+\begin{itemize}
+    \item \textbf{Main Battery (SRAD):} 7.4\,V, 2400\,mA·h
+    \item \textbf{Redundancy Battery (COTS Flight Computer):} 7.4\,V, 2400\,mA·h
+\end{itemize}
+Gens ace 2400mAh 2S 7.4V RX Lipo Battery Pack with JST-SYP Plug
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Parameter} & \textbf{Value} \\ \hline
+Balancer Connector Type & JST-XHR-2P \\ \hline
+Brand & Gens Ace \\ \hline
+Capacity (mAh) & 2400 \\ \hline
+Configuration & 2S1P \\ \hline
+Connector Type & JST-SYP \\ \hline
+Discharge Rate (C) & / \\ \hline
+Height (±2mm) & 17 \\ \hline
+Is Featured Product & No \\ \hline
+Length (±5mm) & 88 \\ \hline
+Max Burst Discharge Rate (C) & NO \\ \hline
+Net Weight (±20g) & 94 \\ \hline
+Over 300Wh & No \\ \hline
+Preorder Config & No \\ \hline
+Store No. & M502A \\ \hline
+Voltage (V) & 7.4 \\ \hline
+Width (±2mm) & 29 \\ \hline
+Wire Gauge & AWG20\# \\ \hline
+Discharge Wire Length (mm) & 80 \\ \hline
+Quantity per Box & 42 pcs/box \\ \hline
+Capacity Range (mAh) & 1000–2999 \\ \hline
+\end{tabular}
+\caption{Specifications of Gens Ace 7.4V 2400mAh LiPo Battery}
+\label{tab:gensace2400}
+\end{table}
+
+Additionally, external power can be provided via a pad connector to keep the main battery fully charged during pre-flight checks.
+
+\section{Control Logic / Operating System}
+\begin{itemize}
+    \item The COTS system will always send the recovery deployment signal.
+    \item It will overrule any other signal sent by the SRAD computer.
+    \item RTOS: FreeRTOS
+\end{itemize}
+
+\section{Control System / Dynamics}
+\emph{(Section Placeholder)}
+
+\section{Ground Station}
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{Images/ground_station.jpeg}
+  \caption{Current Ground Station}
+  \label{fig:ground_station}
+\end{figure}
+
+\textbf{TODO:}
+\begin{itemize}
+    \item Add simulation CSV data input
+    \item Display position in 3D
+    \item Temperature data
+    \item Airbrake percentage
+    \item Gyroscope pressure data
+    \item Parachute trigger (main/rogue)
+    \item Ask for team feedback
+    \item Rocket arming signal
+    \item Time tracking
+    \item Internal pressure measurement
+\end{itemize}
+
+\end{document}
