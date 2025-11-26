@@ -343,9 +343,12 @@ In the context of apogee estimation, the \acrshort{mekf} contributes by providin
 \end{itemize}
 
 \section{Antennas}
-Communication between the ground station and the rocket will be handled using the LoRa SX1278 Ra-02 module, paired with a Yagi-Uda antenna and a Vertical End Feed.
+Reliable communication between the ground station and the rocket is crucial. To ensure this, the rocket’s electronic system will employ an LoRa SX1278 Ra-02 module paired with both a Yagi-Uda antenna and a Vertical End-Feed antenna, providing redundancy throughout the whole mission.
 \\
-The LoRa Sx1278 Ra-02 module provides long-range communication and high interference immunity with low power consumption
+The LoRa SX1278 Ra-02 module provides long-range communication with a wider bandwidth, improving resistance to interference while maintaining low power consumption. It is important to note, its lower data rate further enhances the ability to detect and decode the signal, increasing the robustness against noise and signal degradation.
+\\
+The ground station will be equipped with a five-element Yagi-Uda, comprising three directors, one driven element and one reflector, as well as a Marconi antenna (a vertical end-feed with ¼ wave). This redundancy, ensured by each antenna’s individual coverage area, provides maximum efficiency and reliability in the communication process.
+
 
 \bibliography{references}
 
