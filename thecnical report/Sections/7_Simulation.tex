@@ -1,0 +1,107 @@
+\section{Simulations}
+
+The rocket simulation was performed using \textit{RocketPy}, a well-established and thoroughly tested open-source Python library for trajectory simulation and analysis of sounding rockets and high-power rockets. The latest stable version (v1.1.1) was used for this project.
+
+\subsection{RocketPy Framework Structure}
+
+RocketPy follows a modular architecture that separates the simulation into four primary components:
+
+\begin{itemize}
+    \item \textbf{Environment Module:}  
+    Defines atmospheric conditions such as temperature, pressure, wind profiles, and gravity models. The module supports multiple atmospheric datasets, including the Standard Atmosphere model, custom atmospheric inputs, and weather reanalysis or forecast models (e.g., ECMWF, GFS).  
+
+    For this project, historical weather data from the EUROC competition was used to enable realistic retrospective flight simulations. Atmospheric data can be obtained from sources such as the Copernicus Climate Data Store:  
+    \url{https://cds.climate.copernicus.eu/}
+
+    \item \textbf{Motor Module:}  
+    Describes the propulsion system using thrust curves, grain geometry, propellant properties, and nozzle characteristics. RocketPy supports solid, liquid, and hybrid motor configurations, allowing detailed modelling of mass flow and centre of mass variation during burn.  
+
+    In this work, a solid rocket motor is used.
+
+    \item \textbf{Rocket Module:}  
+    Defines the complete vehicle geometry and mass properties, including aerodynamic surfaces (nose cone, fins, and tail sections), inertial properties, drag coefficients (powered and unpowered flight), and recovery systems such as parachutes.
+
+    \item \textbf{Flight Module:}  
+    Integrates all previous components to simulate the full trajectory using a six degrees of freedom (6-DOF) numerical solver. The simulation accounts for aerodynamic drag, gravity, wind effects, thrust, rail guidance, and parachute deployment events.
+\end{itemize}
+
+\subsection{JSON-Based Configuration Architecture}
+
+To improve workflow efficiency and enable rapid iteration during the design process, a custom JSON-based configuration system was developed. This approach offers several advantages over hard-coded Python scripts:
+
+\begin{itemize}
+    \item \textbf{Centralized configuration management:}  
+    All rocket parameters are stored in a single \texttt{rocket.json} file. This allows non-expert users to modify simulation parameters without interacting directly with the source code.
+
+    \item \textbf{Version control:}  
+    Design iterations are tracked through JSON file versioning, enabling a clear history of configuration changes.
+\end{itemize}
+
+A custom loader function, \texttt{load\_flight\_from\_json()}, parses the JSON configuration and instantiates the corresponding RocketPy objects. The JSON structure mirrors the RocketPy architecture:
+
+\begin{verbatim}
+{
+  "path": ".\\specifications\\",
+  "environment": { ... },
+  "motor": { ... },
+  "rocket": { ... },
+  "flight": { ... }
+}
+\end{verbatim}
+
+\subsubsection*{Aerodynamic Modelling}
+
+The rocket uses separate drag coefficient curves for powered and unpowered flight phases, accounting for changes in base drag during motor burn. These curves can be generated using aerodynamic analysis tools such as \textit{RASAero}.
+
+\subsection{Air Brakes System (Currently Disabled)}
+
+The configuration includes provisions for an active air brakes system located at 1.30 m along the rocket body. However, this system is currently disabled in the simulation.
+
+When enabled, the air brakes system includes:
+
+\begin{itemize}
+    \item Dynamic drag coefficient variation as a function of deployment level and Mach number
+    \item A control algorithm operating at 10 Hz sampling rate
+    \item Closed-loop integration with flight state for apogee targeting
+\end{itemize}
+
+This system is intended for future iterations to enable precise altitude control and achieve competition targets of approximately 3000 m. However, for the current design, the system was removed from the physical rocket to improve simplicity and reliability, as this is the team’s first rocket design.
+
+\subsection{Redundancy Checking}
+
+To validate simulation accuracy, \textit{OpenRocket} is used as an independent verification tool. Simulation results are considered acceptable if the following parameters agree within 5\%:
+
+\begin{itemize}
+    \item Apogee altitude
+    \item Maximum velocity
+    \item Parachute deployment timing
+\end{itemize}
+
+\subsection{Document Management}
+
+A RocketPy simulation requires structured input data defining the environment, motor, and rocket configuration.
+
+\subsubsection*{Environment Definition}
+
+The \texttt{Environment} class stores atmospheric and geographic data required for trajectory prediction. It is defined using:
+
+\begin{itemize}
+    \item Latitude
+    \item Longitude
+    \item Elevation
+    \item Atmospheric model specification (year, month, day, and UTC time)
+\end{itemize}
+
+\subsubsection*{Motor Data Format}
+
+RocketPy supports solid, hybrid, and liquid propulsion systems. Since a solid motor is used, thrust curve data is required.
+
+The thrust curve file is structured as follows:
+\begin{itemize}
+    \item Header line: common name, diameter, length, propellant weight, total weight, manufacturer
+    \item Subsequent lines: time (s) and thrust (N)
+\end{itemize}
+
+\subsubsection*{Rocket Definition}
+
+A Rocket object is defined after the motor and includes aerodynamic surfaces, recovery systems, and rail guides. Key parameters include mass properties, aerodynamic coefficients, and geometric configuration.

@@ -1,0 +1,129 @@
+% ----------------------------------------------------------------------
+% Packages
+% ----------------------------------------------------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usepackage[export]{adjustbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{anysize}
+\marginsize{2cm}{2cm}{2cm}{2cm}
+
+\usepackage{appendix}
+\usepackage{cancel}
+\usepackage{caption}
+\captionsetup{labelfont={bf}}
+
+\usepackage{pdflscape}
+\usepackage{url}
+
+\usepackage{color}
+\usepackage{xcolor}
+
+% Colors
+\definecolor{novablue}{RGB}{0,101,189}
+\definecolor{dkgreen}{RGB}{52,129,65}
+\definecolor{cellborder}{HTML}{CFCFCF}
+\definecolor{cellbackground}{HTML}{F7F7F7}
+\definecolor{incolor}{HTML}{303F9F}
+\definecolor{outcolor}{HTML}{D84315}
+\definecolor{lightblue}{RGB}{173,216,230}
+
+\usepackage[
+    colorlinks = true,
+    plainpages = true,
+    linkcolor = novablue,
+    urlcolor = novablue,
+    citecolor = novablue,
+    anchorcolor = novablue
+]{hyperref}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+\fancyhead[L]{
+    \includegraphics[scale = 0.3]{Images/NovaFctHor.png}
+}
+
+\fancyhead[R]{\footnotesize Cadeira}
+
+\fancyfoot[L]{\footnotesize MEEC}
+\fancyfoot[R]{\thepage}
+
+\renewcommand{\footrulewidth}{0.4pt}
+
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage[super]{nth}
+\usepackage{siunitx}
+\usepackage{subcaption}
+
+\usepackage{titlesec}
+
+\titleformat{\section}
+{\Large\bfseries}
+{\thesection}
+{1em}
+{}
+
+\titleformat{\subsection}
+{\large\bfseries}
+{\thesubsection}
+{1em}
+{}
+
+\titleformat{\subsubsection}
+{\normalsize\bfseries}
+{\thesubsubsection}
+{1em}
+{}
+
+\usepackage[breakable]{tcolorbox}
+\usepackage[numbers]{natbib}
+\usepackage[acronyms]{glossaries}
+
+\usepackage{listings}
+
+\lstset{
+    backgroundcolor=\color{cellbackground},
+    basicstyle=\ttfamily,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    commentstyle=\color{gray},
+    escapeinside={(*@}{@*)},
+    keywordstyle=\color{blue},
+    stringstyle=\color{dkgreen},
+    frame=single,
+    rulecolor=\color{cellborder},
+}
+
+% TikZ
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+
+\usepackage{xcolor}
+
+% Define custom colors FIRST
+\definecolor{lightblue}{RGB}{173,216,230}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+
+% Tables
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{makecell}
+
+% Commands
+\newcommand{\sen}{\operatorname{sen}}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\renewcommand{\appendixpagename}{\LARGE Appendices}
+
+\makeglossaries

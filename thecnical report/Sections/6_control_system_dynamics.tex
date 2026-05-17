@@ -1,0 +1,13 @@
+\section{Control System / Dynamics}
+
+\subsection{Active control}
+
+The active control system of the \emph{ASTRO Rocket} is exclusively dedicated to the deployment of airbrakes, which are used to increase aerodynamic drag and reduce velocity in order to achieve the target apogee. Other forms of active control, such as fin actuation, are prohibited by the \acrfull{euroc} regulations.\\
+
+The airbrake control is implemented using \acrshort{pid} controllers running on one of the onboard microcontrollers. This controller communicates with the servo motor system, which actively deploys the airbrakes by rotating a geared mechanism. The \acrshort{pid} controller is designed based on the relationship between the \emph{drag coefficient} and the \emph{Mach number} for each airbrake deployment level. Velocity measurements are used as the primary feedback variable to determine the appropriate control action required to reach the target velocity at each altitude. The altitude is estimated by correlating the pressure measured by the onboard barometer with the \acrfull{isa} pressure model. Further details regarding the experimental implementation and results will be presented in future revisions of this document.
+
+\subsection{Sensing System}
+
+The sensing and control subsystem features a more sophisticated architecture. All sensors are connected to an onboard microcontroller dedicated to data handling and signal processing. The acquired data are processed through a \acrfull{mekf} to enhance state estimation accuracy and suppress measurement noise. The \acrshort{mekf} is a well-established algorithm widely used in spacecraft attitude determination systems due to its high precision \citep{Markley2023Error-Covariance}.\\
+
+In the context of apogee estimation, the \acrshort{mekf} contributes by providing accurate attitude quaternion estimates derived from the magnetometer, gyroscope, and accelerometer measurements. When the pitch angle, inferred from the estimated quaternion, approaches zero, the rocket is considered to have reached the apex of its parabolic trajectory, indicating the apogee point.\\
