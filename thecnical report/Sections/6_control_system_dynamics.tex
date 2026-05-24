@@ -8,6 +8,6 @@ The airbrake control is implemented using \acrshort{pid} controllers running on 
 
 \subsection{Sensing System}
 
-The sensing and control subsystem features a more sophisticated architecture. All sensors are connected to an onboard microcontroller dedicated to data handling and signal processing. The acquired data are processed through a \acrfull{mekf} to enhance state estimation accuracy and suppress measurement noise. The \acrshort{mekf} is a well-established algorithm widely used in spacecraft attitude determination systems due to its high precision \citep{Markley2023Error-Covariance}.\\
+The sensing and control subsystem features a more sophisticated architecture. All sensors are connected to an onboard microcontroller dedicated to data handling and signal processing. The acquired data are processed through a \acrfull{mekf} to enhance state estimation accuracy and suppress measurement noise. The \acrshort{mekf} is a well-established algorithm widely used in spacecraft attitude determination systems due to its high precision \citep{Markley2023Error_Covariance}.\\
 
 In the context of apogee estimation, the \acrshort{mekf} contributes by providing accurate attitude quaternion estimates derived from the magnetometer, gyroscope, and accelerometer measurements. When the pitch angle, inferred from the estimated quaternion, approaches zero, the rocket is considered to have reached the apex of its parabolic trajectory, indicating the apogee point.\\
