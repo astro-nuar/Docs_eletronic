@@ -55,6 +55,18 @@ A summary of the primary electronic components used within the SRAD avionics sys
 The commercial off-the-shelf (COTS) recovery avionics system used as a redundant backup is also detailed in Annex, Table~\ref{tab:COTS_electronics}, including its supply requirements and power consumption.
 
 \subsection{FreeRTOS}
+\subsubsection{\texttt{task\_data\_acquisition}}
+
+\textbf{Priority:} Very High
+
+\textbf{Description:} This task is responsible for continuously reading raw data from the onboard sensors (Barometer, IMU, and GPS) at a strict and fixed frequency (e.g., 100\,Hz or 400\,Hz). By utilizing the \texttt{vTaskDelayUntil} function, it guarantees absolute timing execution without drift. To maintain its high-frequency execution rate and prevent blocking, this task intentionally avoids any complex calculations or data filtering. Its sole responsibility is to efficiently poll the I2C and SPI buses and immediately dispatch the gathered raw data to the relevant queues for downstream processing.
+
+\subsubsection{\texttt{task\_filter}}
+
+\textbf{Priority:} High
+
+\textbf{Description:} This task receives the raw data from the sensors and processes it through Kalman filter. Its primary objective is to take noisy sensor readings and calculate clean, accurate estimates for true altitude, velocity, and acceleration. These are the exact state variables required by the flight control state machine to safely and accurately trigger phase transitions.
+
 
 \subsection{Electronics Bay Configuration}
 
