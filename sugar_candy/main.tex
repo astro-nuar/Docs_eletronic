@@ -1,0 +1,81 @@
+\documentclass[12pt]{article}
+
+\input{preamble}
+\input{acronyms}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+% -------------------------
+% Cover
+% -------------------------
+\begin{center}
+    \begin{figure}
+        \vspace{-1.0cm}
+        \includegraphics[scale = 0.055]{Images/NovaFctVer.png}
+    \end{figure}
+
+    \mbox{}\\[2.0cm]
+    \textsc{\Huge Nucleo de AeroEspacial}\\[2.5cm]
+    \textsc{\LARGE ASTRO}\\[2.0cm]
+    \HRule\\[0.4cm]
+    {\large \bf {Electronics Report}}\\[0.2cm]
+    \HRule\\[1.5cm]
+\end{center}
+
+\begin{flushleft}
+    \textbf{Author:}
+\end{flushleft}
+
+\begin{center}
+    \begin{minipage}{0.5\textwidth}
+        \begin{flushleft}
+            Lorem Ipsum (31416)\\
+            Lorem Ipsum (31416)
+        \end{flushleft}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \begin{flushright}
+            \href{mailto:lorem.ipsum@campus.fct.unl.pt}{\texttt{lorem.ipsum@campus.fct.unl.pt}}\\
+            \href{mailto:lorem.ipsum@campus.fct.unl.pt}{\texttt{lorem.ipsum@campus.fct.unl.pt}}
+        \end{flushright}
+    \end{minipage}
+\end{center}
+
+\vspace{5cm}
+
+\begin{center}
+    \large \bf 2025/2026 -- \nth{1} Semester, DEEC
+\end{center}
+
+\thispagestyle{empty}
+
+\setcounter{page}{0}
+
+\newpage
+
+\tableofcontents
+\newpage
+
+\listoffigures
+\newpage
+
+\printglossary[type=\acronymtype, title={List of Acronyms}]
+
+% -------------------------
+% Sections
+% -------------------------
+\input{Sections/1_Introduction}
+\input{Sections/2_Sensors_and_analogue_circuit}
+\input{Sections/3_Microcontroller}
+
+% -------------------------
+% Annex / Appendix
+% -------------------------
+\appendix
+
+\input{Annexes/components_specs.tex}
+\input{Annexes/components_shipping_state.tex}
+
+\end{document}

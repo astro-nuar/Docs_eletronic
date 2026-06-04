@@ -17,7 +17,7 @@ Programming and debugging are performed using the \textbf{ST-LINK V2} interface,
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{Images/3_Microcontroller/USB_coms.jpeg}
+    \includegraphics[width=\linewidth]{Images/3_Microcontroller/USB_coms.jpeg}
     \caption{ST-LINK V2 programmer/debugger interface}
     \label{fig:USB_coms}
 \end{figure}
@@ -26,7 +26,7 @@ The complete hardware setup used during firmware development and testing is show
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{Images/3_Microcontroller/current_setup.jpeg}
+    \includegraphics[width=\linewidth]{Images/3_Microcontroller/current_setup.jpeg}
     \caption{Current SRAD computer development setup}
     \label{fig:current_setup}
 \end{figure}
@@ -35,7 +35,7 @@ The STM32F411 development board used for firmware implementation is shown in Fig
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{Images/3_Microcontroller/STM32411.jpeg}
+    \includegraphics[width=\linewidth]{Images/3_Microcontroller/STM32411.jpeg}
     \caption{STM32F411 development board}
     \label{fig:STM32411}
 \end{figure}
@@ -43,127 +43,6 @@ The STM32F411 development board used for firmware implementation is shown in Fig
 For initial communication testing and telemetry verification, UART communication was established between the STM32 and an Arduino Uno development board. In this configuration, inertial measurement unit (IMU) data is transmitted from the STM32 over the UART interface and monitored using the Arduino IDE serial monitor on a ground station computer. This arrangement provides a simple and effective platform for validating serial communication reliability and sensor data transmission prior to integration with the complete avionics stack.
 
 The overall flight architecture incorporates both the SRAD flight computer and the COTS recovery system operating in parallel to provide redundancy and increased operational safety. The COTS recovery system is configured as the primary authority for parachute deployment and will always issue the recovery command when deployment conditions are satisfied. In the event of conflicting commands, the COTS system overrides the SRAD deployment signal. This hierarchical recovery structure introduces an additional safety layer and reduces the likelihood of deployment failure resulting from software or hardware anomalies within the SRAD system.
-
-\subsection{Stages of flight}
-
-In Figure~\ref{fig.3:State_diagram_visual} it is possible to see the state that the rocket will report during flight while in Figure~\ref{fig.3:State_diagram_computer} it is possible to see the actual state diagram that the internal SRAD computer will take into account considering that it is the only states that system actuation/sensing changes.
-
-\begin{figure}[ht]
-    \centering
-
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Images/3_Microcontroller/State_diagram_visual.drawio}
-        \caption{Visual}
-        \label{fig.3:State_diagram_visual}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Images/3_Microcontroller/State_diagram_computer.drawio.pdf}
-        \caption{Computer}
-        \label{fig.3:State_diagram_computer}
-    \end{subfigure}
-
-    \caption{SRAD state diagrams}
-    \label{fig.3:State_diagrams}
-\end{figure}
-
-\begin{itemize}
-
-    \item \textbf{BOOT}
-    \begin{itemize}
-        \item Establish communication with the ground station.
-        \item Verify sensor status, internal variables, and subsystem health.
-        \item Perform SRAD computer self-checks.
-        \item Await ``GO'' confirmation from both the SRAD computer and the ground station team.
-    \end{itemize}
-
-    \item \textbf{BOOT $\rightarrow$ ARMED}
-    \begin{itemize}
-        \item Triggered by an arming command sent from the ground station to the SRAD computer.
-    \end{itemize}
-
-    \item \textbf{ARMED}
-    \begin{itemize}
-        \item Start SD card flight-data logging.
-        \item Continuously monitor telemetry and sensor streams.
-    \end{itemize}
-
-    \item \textbf{ARMED $\rightarrow$ LAUNCH}
-    \begin{itemize}
-        \item Triggered after launch authorization and motor ignition detection.
-    \end{itemize}
-
-    \item \textbf{LAUNCH}
-    \begin{itemize}
-        \item Initialize the Kalman filter.
-        \item Fuse accelerometer, gyroscope, and magnetometer measurements to estimate:
-        \begin{itemize}
-            \item Acceleration
-            \item Velocity
-            \item Position
-            \item Attitude
-        \end{itemize}
-    \end{itemize}
-
-    \item \textbf{LAUNCH $\rightarrow$ BOOST}
-    \begin{itemize}
-        \item Triggered when longitudinal acceleration exceeds $3g$.
-    \end{itemize}
-
-    \item \textbf{BOOST}
-    \begin{itemize}
-        \item Monitor powered ascent dynamics.
-        \item Continue inertial state estimation using IMU data.
-    \end{itemize}
-
-    \item \textbf{BOOST $\rightarrow$ COAST}
-    \begin{itemize}
-        \item Triggered when vertical acceleration drops below $0$, indicating motor burnout.
-    \end{itemize}
-
-    \item \textbf{COAST}
-    \begin{itemize}
-        \item Continue estimating altitude and vertical velocity.
-        \item Prepare recovery systems for apogee deployment.
-    \end{itemize}
-
-    \item \textbf{COAST $\rightarrow$ APOGEE}
-    \begin{itemize}
-        \item Triggered when estimated vertical velocity becomes negative.
-    \end{itemize}
-
-    \item \textbf{APOGEE}
-    \begin{itemize}
-        \item Integrate GPS measurements into the navigation filter for improved position tracking.
-        \item Deploy the drogue parachute to stabilize descent.
-    \end{itemize}
-
-    \item \textbf{APOGEE $\rightarrow$ MAIN CHUTE}
-    \begin{itemize}
-        \item Triggered when altitude falls below the predefined deployment threshold according to EUROC regulations of 450m (needs to be adjusted to a more reasonably value that is not exactly at the maximal allowed).
-    \end{itemize}
-
-    \item \textbf{MAIN CHUTE}
-    \begin{itemize}
-        \item Deploy the main parachute.
-        \item Monitor descent rate and landing conditions.
-    \end{itemize}
-
-    \item \textbf{MAIN CHUTE $\rightarrow$ LANDED}
-    \begin{itemize}
-        \item Triggered when vertical velocity remains within a near-zero threshold for more than $5$ seconds. This condition reduces false landing detections caused by wind disturbances or transient motion.
-    \end{itemize}
-
-    \item \textbf{LANDED}
-    \begin{itemize}
-        \item Stop flight operations.
-        \item Finalize data logging and preserve recovery telemetry.
-        \item Await recovery team retrieval.
-    \end{itemize}
-
-\end{itemize}
 
 \subsection{Microelectronics}
 
@@ -176,18 +55,19 @@ A summary of the primary electronic components used within the SRAD avionics sys
 The commercial off-the-shelf (COTS) recovery avionics system used as a redundant backup is also detailed in Annex, Table~\ref{tab:COTS_electronics}, including its supply requirements and power consumption.
 
 \subsection{FreeRTOS}
-
-\subsubsection{task data acquisition}
+\subsubsection{\texttt{task\_data\_acquisition}}
 
 \textbf{Priority:} Very High
 
 \textbf{Description:} This task is responsible for continuously reading raw data from the onboard sensors (Barometer, IMU, and GPS) at a strict and fixed frequency (e.g., 100\,Hz or 400\,Hz). By utilizing the \texttt{vTaskDelayUntil} function, it guarantees absolute timing execution without drift. To maintain its high-frequency execution rate and prevent blocking, this task intentionally avoids any complex calculations or data filtering. Its sole responsibility is to efficiently poll the I2C and SPI buses and immediately dispatch the gathered raw data to the relevant queues for downstream processing.
 
-\subsubsection{task filter}
+\subsubsection{\texttt{task\_filter}}
 
 \textbf{Priority:} High
 
 \textbf{Description:} This task receives the raw data from the sensors and processes it through Kalman filter. Its primary objective is to take noisy sensor readings and calculate clean, accurate estimates for true altitude, velocity, and acceleration. These are the exact state variables required by the flight control state machine to safely and accurately trigger phase transitions.
+
+
 
 
 \subsection{Electronics Bay Configuration}

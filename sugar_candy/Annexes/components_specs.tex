@@ -1,0 +1,104 @@
+\begin{landscape}
+
+\begin{table}
+\centering
+\caption{SRAD avionics electronic components quick specifications}
+\label{tab:SRAD_electronics}
+
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Device} & \textbf{Supply (V)} & \textbf{Current} & \textbf{Power (mW)} & \textbf{Interface} & \textbf{Role} & \textbf{Notes} \\
+\midrule
+
+STM32F411 Microcontroller
+& 1.8--3.6
+& -- 
+& -- 
+& I2C / SPI / UART
+& Main flight computer
+& Cortex-M4 MCU \\
+
+ICM-45686 6DOF IMU
+& 3.3
+& 34 mA
+& 112
+& I2C / SPI
+& Inertial sensing
+& High-rate motion tracking \\
+
+ADXL375 3DOF Accelerometer
+& 2.0--3.6
+& 145 µA
+& 0.5
+& SPI / I2C
+& High-G acceleration
+& Up to ±200 g \\
+
+LIS2MDL Magnetometer
+& 1.71--3.6
+& 200 µA
+& 0.66
+& I2C
+& Heading reference
+& Low-power compass \\
+
+MS5607 Barometer
+& 1.8--3.6
+& 1.4 mA
+& 4.6
+& I2C / SPI
+& Altitude estimation
+& High-resolution pressure sensor \\
+
+NEO-M9N GPS Module
+& 3.6
+& -- 
+& -- 
+& UART
+& Positioning
+& Multi-constellation GNSS \\
+
+SX1278 LoRa (Ra-02)
+& 1.8--3.3
+& 105 mA
+& 346
+& SPI
+& Telemetry link
+& Long-range RF comms \\
+
+SparkFun microSD Module
+& 3.3
+& 20 mA
+& 66
+& SPI
+& Data logging
+& Flash storage interface \\
+
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}
+\centering
+\caption{COTS avionics system specifications}
+\label{tab:COTS_electronics}
+
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Device} & \textbf{Supply (V)} & \textbf{Current} & \textbf{Power (mW)} & \textbf{Interface} & \textbf{Role} & \textbf{Notes} \\
+\midrule
+
+CATS Vega Flight Computer
+& 7--24
+& 100 mA
+& 321.75
+& UART / CAN (var.)
+& Recovery control system
+& Integrated flight computer + deployment logic \\
+
+\bottomrule
+\end{tabular}}
+\end{table}
+\end{landscape}
